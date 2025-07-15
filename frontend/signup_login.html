@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Sign Up / Login - WEBSITE FRAUD SHIELD</title>
+
+  <!-- Favicons -->
+  <link href="assets/img/mainlogo.jpeg" rel="icon" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+  <!-- Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary-color: #3a0ca3;
+      --primary-light: #4361ee;
+      --secondary-color: #4895ef;
+      --accent-color: #4cc9f0;
+      --danger-color: #f72585;
+      --success-color: #02c39a;
+      --dark-color: #121212;
+      --light-color: #f8f9fa;
+      --gray-color: #6c757d;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      color: var(--dark-color);
+    }
+
+    /* Header */
+    #header {
+      background-color: #fff;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      padding: 15px 0;
+      transition: all 0.5s;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .logo a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .logo a:hover {
+      color: var(--secondary-color);
+    }
+
+    .nav-menu {
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-menu ul {
+      display: flex;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .nav-menu li {
+      padding: 0 15px;
+    }
+
+    .nav-menu a {
+      color: var(--dark-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .nav-menu a:hover, .nav-menu .active a {
+      color: var(--primary-color);
+    }
+
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: var(--primary-color);
+      bottom: -5px;
+      left: 0;
+      transition: width 0.3s;
+    }
+
+    .nav-menu a:hover::after, .nav-menu .active a::after {
+      width: 100%;
+    }
+
+    /* Form container */
+    .auth-container {
+      max-width: 1000px;
+      margin: 100px auto 50px;
+      background-color: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      display: flex;
+    }
+
+    .auth-image {
+      width: 50%;
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: white;
+      position: relative;
+    }
+
+    .auth-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('/api/placeholder/500/800');
+      background-size: cover;
+      opacity: 0.2;
+    }
+
+    .auth-image h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .auth-image p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .auth-image .features {
+      position: relative;
+      z-index: 2;
+    }
+
+    .auth-image .feature-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .auth-image .feature-icon {
+      margin-right: 10px;
+      font-size: 24px;
+    }
+
+    .auth-forms {
+      width: 50%;
+      padding: 40px;
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .auth-header h1 {
+      color: var(--primary-color);
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .auth-tabs {
+      display: flex;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #eee;
+    }
+
+    .auth-tab {
+      flex: 1;
+      text-align: center;
+      padding: 15px 0;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--gray-color);
+      transition: all 0.3s;
+    }
+
+    .auth-tab.active {
+      color: var(--primary-color);
+      border-bottom: 3px solid var(--primary-color);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--dark-color);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 1rem;
+      border: 2px solid #eee;
+      border-radius: 10px;
+      transition: all 0.3s;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+      outline: none;
+    }
+
+    .form-control-icon {
+      position: relative;
+    }
+
+    .form-control-icon input {
+      padding-left: 45px;
+    }
+
+    .form-control-icon i {
+      position: absolute;
+      left: 15px;
+      top: 14px;
+      color: var(--gray-color);
+    }
+
+    .btn {
+      display: inline-block;
+      font-weight: 500;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      user-select: none;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1rem;
+      line-height: 1.5;
+      border-radius: 10px;
+      transition: all 0.15s ease-in-out;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(58, 12, 163, 0.2);
+    }
+
+    .btn-danger {
+      background-color: var(--danger-color);
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background-color: #e01e79;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(247, 37, 133, 0.2);
+    }
+
+    .btn-block {
+      display: block;
+      width: 100%;
+    }
+
+    .form-check {
+      margin-bottom: 20px;
+    }
+
+    .form-check-label {
+      margin-left: 5px;
+      cursor: pointer;
+    }
+
+    .divider {
+      margin: 25px 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: #eee;
+    }
+
+    .divider span {
+      position: relative;
+      background-color: #fff;
+      padding: 0 15px;
+      color: var(--gray-color);
+    }
+
+    .social-login {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 25px;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #f8f9fa;
+      border: 1px solid #eee;
+      transition: all 0.3s;
+    }
+
+    .social-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .social-btn i {
+      font-size: 1.2rem;
+    }
+
+    .welcome-card {
+      text-align: center;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .welcome-card h2 {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+
+    .welcome-icon {
+      font-size: 60px;
+      color: var(--success-color);
+      margin-bottom: 20px;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #fff;
+      padding: 20px 0;
+      text-align: center;
+      margin-top: 50px;
+      box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .copyright {
+      color: var(--gray-color);
+    }
+
+    @media (max-width: 991px) {
+      .auth-container {
+        flex-direction: column;
+        max-width: 600px;
+      }
+
+      .auth-image, .auth-forms {
+        width: 100%;
+      }
+
+      .auth-image {
+        padding: 30px;
+      }
+    }
+
+    @media (max-width: 575px) {
+      .auth-container {
+        margin: 80px 15px 30px;
+      }
+
+      .auth-image, .auth-forms {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center justify-content-between">
+      <h1 class="logo"><a href="index.html">WEBSITE FRAUD SHIELD</a></h1>
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <!-- <li><a href="index.html">Home</a></li> -->
+          <li class="active"><a href="signup_login_new.html">Sign Up / Login</a></li>
+          <!-- <li><a href="#about">About</a></li>
+          <li><a href="#usecases">Use Cases</a></li>
+          <li><a href="#team">Team</a></li> -->
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <!-- End Header -->
+
+  <main id="main">
+    <div class="auth-container">
+      <div class="auth-image">
+        <h2>Protect Your Online Experience</h2>
+        <p>Join Website Fraud Shield today and browse the web with confidence.</p>
+        <div class="features">
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <div>Secure Authentication</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-fingerprint"></i>
+            </div>
+            <div>Fraud Detection</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-history"></i>
+            </div>
+            <div>Browsing History Protection</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-lock"></i>
+            </div>
+            <div>Advanced Security</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-forms">
+        <div class="auth-header">
+          <h1>Welcome Back</h1>
+          <p>Sign in to continue your protection</p>
+        </div>
+
+        <div id="welcome-section" style="display:none;">
+          <div class="welcome-card">
+            <div class="welcome-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 id="welcome-message"></h2>
+            <p>You are successfully logged in. You can now access all our features.</p>
+            <button id="logout-btn" class="btn btn-danger mt-4" onclick="logout()">
+              <i class="fas fa-sign-out-alt me-2"></i>Logout
+            </button>
+          </div>
+        </div>
+
+        <div id="auth-forms-section">
+          <div class="auth-tabs">
+            <div class="auth-tab" id="login-tab" onclick="switchTab('login')">Login</div>
+            <div class="auth-tab" id="signup-tab" onclick="switchTab('signup')">Sign Up</div>
+          </div>
+
+          <form id="login-form">
+            <div class="form-group">
+              <label for="login-username">Username</label>
+              <div class="form-control-icon">
+                <i class="fas fa-user"></i>
+                <input type="text" class="form-control" id="login-username" placeholder="Enter your username" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <div class="form-control-icon">
+                <i class="fas fa-lock"></i>
+                <input type="password" class="form-control" id="login-password" placeholder="Enter your password" required />
+              </div>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="remember-me" />
+              <label class="form-check-label" for="remember-me">Remember me</label>
+            </div>
+            <button type="button" class="btn btn-primary btn-block" onclick="login()">
+              <i class="fas fa-sign-in-alt me-2"></i>Login
+            </button>
+
+            <div class="divider">
+              <span>Or continue with</span>
+            </div>
+
+            <div class="social-login">
+              <a href="#" class="social-btn">
+                <i class="fab fa-google" style="color: #DB4437"></i>
+              </a>
+              <a href="#" class="social-btn">
+                <i class="fab fa-facebook-f" style="color: #4267B2"></i>
+              </a>
+              <a href="#" class="social-btn">
+                <i class="fab fa-twitter" style="color: #1DA1F2"></i>
+              </a>
+            </div>
+          </form>
+
+          <form id="signup-form" style="display: none;">
+            <div class="form-group">
+              <label for="signup-username">Username</label>
+              <div class="form-control-icon">
+                <i class="fas fa-user"></i>
+                <input type="text" class="form-control" id="signup-username" placeholder="Choose a username" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="signup-email">Email</label>
+              <div class="form-control-icon">
+                <i class="fas fa-envelope"></i>
+                <input type="email" class="form-control" id="signup-email" placeholder="Enter your email" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="signup-password">Password</label>
+              <div class="form-control-icon">
+                <i class="fas fa-lock"></i>
+                <input type="password" class="form-control" id="signup-password" placeholder="Create a password" required />
+              </div>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="terms" required />
+              <label class="form-check-label" for="terms">I agree to the <a href="#">Terms and Conditions</a></label>
+            </div>
+            <button type="button" class="btn btn-primary btn-block" onclick="signup()">
+              <i class="fas fa-user-plus me-2"></i>Create Account
+            </button>
+
+            <!-- <div class="divider">
+              <span>Or continue with</span>
+            </div>
+
+            <div class="social-login">
+              <a href="#" class="social-btn">
+                <i class="fab fa-google" style="color: #DB4437"></i>
+              </a>
+              <a href="#" class="social-btn">
+                <i class="fab fa-facebook-f" style="color: #4267B2"></i>
+              </a>
+              <a href="#" class="social-btn">
+                <i class="fab fa-twitter" style="color: #1DA1F2"></i>
+              </a>
+            </div> -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ======= Footer ======= -->
+  <!-- <footer id="footer" class="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; 2025 WEBSITE FRAUD SHIELD. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+  End Footer -->
+
+  <script>
+    // Tab switching
+    function switchTab(tab) {
+      if (tab === 'login') {
+        document.getElementById('login-tab').classList.add('active');
+        document.getElementById('signup-tab').classList.remove('active');
+        document.getElementById('login-form').style.display = 'block';
+        document.getElementById('signup-form').style.display = 'none';
+      } else {
+        document.getElementById('signup-tab').classList.add('active');
+        document.getElementById('login-tab').classList.remove('active');
+        document.getElementById('signup-form').style.display = 'block';
+        document.getElementById('login-form').style.display = 'none';
+      }
+    }
+
+    // Set login as default tab
+    document.addEventListener('DOMContentLoaded', () => {
+      switchTab('login');
+      updateUI();
+    });
+
+    function signup() {
+      const username = document.getElementById('signup-username').value.trim();
+      const password = document.getElementById('signup-password').value.trim();
+      const email = document.getElementById('signup-email').value.trim();
+      const termsChecked = document.getElementById('terms').checked;
+      
+      if (!username || !password || !email) {
+        alert('Please fill all required fields');
+        return;
+      }
+      
+      if (!termsChecked) {
+        alert('Please agree to the Terms and Conditions');
+        return;
+      }
+      
+      if (localStorage.getItem('user_' + username)) {
+        alert('Username already exists');
+        return;
+      }
+      
+      localStorage.setItem('user_' + username, password);
+      localStorage.setItem('email_' + username, email);
+      
+      alert('Account created successfully! Please login.');
+      document.getElementById('signup-form').reset();
+      switchTab('login');
+    }
+
+    function login() {
+  const username = document.getElementById('login-username').value.trim();
+  const password = document.getElementById('login-password').value.trim();
+  const rememberMe = document.getElementById('remember-me').checked;
+  
+  const storedPassword = localStorage.getItem('user_' + username);
+  
+  if (storedPassword === null) {
+    alert('User does not exist. Please sign up.');
+    return;
+  }
+  
+  if (storedPassword !== password) {
+    alert('Incorrect password');
+    return;
+  }
+  
+  if (rememberMe) {
+    localStorage.setItem('rememberedUser', username);
+  }
+  
+  sessionStorage.setItem('loggedInUser', username);
+  // Redirect to index.html after successful login
+  window.location.href = 'index.html';
+}
+    function logout() {
+      sessionStorage.removeItem('loggedInUser');
+      updateUI();
+    }
+
+    function updateUI() {
+      const user = sessionStorage.getItem('loggedInUser');
+      const welcomeSection = document.getElementById('welcome-section');
+      const authFormsSection = document.getElementById('auth-forms-section');
+      const welcomeMessage = document.getElementById('welcome-message');
+
+      if (user) {
+        welcomeMessage.textContent = 'Welcome, ' + user + '!';
+        welcomeSection.style.display = 'block';
+        authFormsSection.style.display = 'none';
+      } else {
+        welcomeSection.style.display = 'none';
+        authFormsSection.style.display = 'block';
+        
+        // Check for remembered user
+        const rememberedUser = localStorage.getItem('rememberedUser');
+        if (rememberedUser) {
+          document.getElementById('login-username').value = rememberedUser;
+          document.getElementById('remember-me').checked = true;
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
